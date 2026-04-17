@@ -7,24 +7,39 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body { background-color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { color: #1e3a8a; text-align: center; font-size: 28px; margin-bottom: 25px; }
+        .stats-row { display: flex; gap: 15px; margin-bottom: 25px; }
+        .stat-box { flex: 1; padding: 15px; border-radius: 16px; text-align: center; border: 1px solid #e2e8f0; }
+        .input-group { display: flex; flexDirection: column; gap: 12px; margin-bottom: 30px; background: #f1f5f9; padding: 15px; border-radius: 16px; }
+        input { padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; }
+        input:focus { border-color: #3b82f6; }
+        .add-btn { background: #1e3a8a; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .add-btn:hover { background: #1e40af; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid #3b82f6; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .sell-btn { background: #0ea5e9; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .qty-btn { background: #f1f5f9; border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState } = React;
 
         function ListItem({ data, onSell, onAdd, onDelete }) {
             return (
-                <div style={{ padding: '15px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="list-item">
                     <div>
-                        <strong style={{fontSize: '18px'}}>{data.text}</strong>
-                        <div style={{color: '#666'}}>Stock: {data.quantity} | Rs. {data.price}</div>
+                        <div style={{fontWeight: 'bold', fontSize: '16px', color: '#1e293b'}}>{data.text}</div>
+                        <div style={{color: '#64748b', fontSize: '13px'}}>Stock: {data.quantity} | Rs. {data.price}</div>
                     </div>
-                    <div style={{display: 'flex', gap: '10px'}}>
-                        <button onClick={onAdd} style={{padding: '5px 10px', cursor: 'pointer'}}>+</button>
-                        <button onClick={onSell} style={{padding: '5px 15px', backgroundColor: '#0ea5e9', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer'}}>Sell</button>
-                        <button onClick={onDelete} style={{color: 'red', border: 'none', background: 'none', cursor: 'pointer'}}>x</button>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                        <button className="qty-btn" onClick={onAdd}>+</button>
+                        <button className="sell-btn" onClick={onSell}>Sell 💸</button>
+                        <button onClick={onDelete} style={{color: '#ef4444', border: 'none', background: 'none', cursor: 'pointer', marginLeft: '5px'}}>✕</button>
                     </div>
                 </div>
             );
@@ -55,26 +70,33 @@
             };
 
             return (
-                <div style={{ fontFamily: 'Arial', maxWidth: '500px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '15px' }}>
-                    <h1 style={{textAlign: 'center'}}>Sultan's Elite Shop 🛒</h1>
-                    <div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
-                        <div style={{flex: 1, padding: '10px', background: '#f0f0f0', borderRadius: '10px', textAlign: 'center'}}>
-                            Sales: <strong>Rs. {sales}</strong>
+                <div className="container">
+                    <h1>Sultan's Elite Shop 🛒</h1>
+                    <div className="stats-row">
+                        <div className="stat-box" style={{background: '#eff6ff'}}>
+                            <div style={{fontSize: '12px', color: '#3b82f6'}}>Total Sales</div>
+                            <div style={{fontSize: '18px', fontWeight: 'bold', color: '#1e3a8a'}}>Rs. {sales}</div>
                         </div>
                     </div>
                     
-                    <div style={{marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '10px'}}>
-                        <input placeholder="Item Name" value={inputValue} onChange={e => setInputValue(e.target.value)} style={{padding: '10px'}} />
-                        <div style={{display: 'flex', gap: '5px'}}>
-                            <input type="number" placeholder="Price" value={inputPrice} onChange={e => setInputPrice(e.target.value)} style={{flex: 1, padding: '10px'}} />
-                            <input type="number" placeholder="Qty" value={quantity} onChange={e => setQuantity(e.target.value)} style={{flex: 1, padding: '10px'}} />
-                            <button onClick={addFruit} style={{padding: '10px', background: '#1e3a8a', color: 'white', border: 'none', borderRadius: '5px'}}>Add</button>
+                    <div className="input-group">
+                        <input placeholder="Item Name (e.g. Honda)" value={inputValue} onChange={e => setInputValue(e.target.value)} />
+                        <div style={{display: 'flex', gap: '8px'}}>
+                            <input type="number" placeholder="Price" style={{flex: 1}} value={inputPrice} onChange={e => setInputPrice(e.target.value)} />
+                            <input type="number" placeholder="Qty" style={{flex: 1}} value={quantity} onChange={e => setQuantity(e.target.value)} />
                         </div>
+                        <button className="add-btn" onClick={addFruit}>Add Item to Shop</button>
                     </div>
 
                     <div>
                         {fruits.map(f => (
-                            <ListItem key={f.id} data={f} onSell={() => sellOne(f.id)} onAdd={() => setFruits(fruits.map(x => x.id === f.id ? {...x, quantity: x.quantity + 1} : x))} onDelete={() => setFruits(fruits.filter(x => x.id !== f.id))} />
+                            <ListItem 
+                                key={f.id} 
+                                data={f} 
+                                onSell={() => sellOne(f.id)} 
+                                onAdd={() => setFruits(fruits.map(x => x.id === f.id ? {...x, quantity: x.quantity + 1} : x))} 
+                                onDelete={() => setFruits(fruits.filter(x => x.id !== f.id))} 
+                            />
                         ))}
                     </div>
                 </div>
