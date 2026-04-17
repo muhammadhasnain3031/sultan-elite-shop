@@ -1,15 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sultan Elite Shop</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  </head>
-  <body>
+</head>
+<body>
     <div id="root"></div>
-<script type="module" src="/index.js"></script>
-  </body>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function ListItem({ data, onSell, onAdd, onDelete }) {
+            return (
+                <div style={{ padding: '15px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <strong style={{fontSize: '18px'}}>{data.text}</strong>
+                        <div style={{color: '#666'}}>Stock: {data.quantity} | Rs. {data.price}</div>
+                    </div>
+                    <div style={{display: 'flex', gap: '10px'}}>
+                        <button onClick={onAdd} style={{padding: '5px 10px', cursor: 'pointer'}}>+</button>
+                        <button onClick={onSell} style={{padding: '5px 15px', backgroundColor: '#0ea5e9', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer'}}>Sell</button>
+                        <button onClick={onDelete} style={{color: 'red', border: 'none', background: 'none', cursor: 'pointer'}}>x</button>
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            const [fruits, setFruits] = useState([]);
+            const [sales, setSales] = useState(0);
+            const [inputValue, setInputValue] = useState("");
+            const [inputPrice, setInputPrice] = useState("");
+            const [quantity, setQuantity] = useState("");
+
+            const addFruit = () => {
+                if (inputValue && inputPrice && quantity) {
+                    setFruits([...fruits, { id: Date.now(), text: inputValue, price: Number(inputPrice), quantity: Number(quantity) }]);
+                    setInputValue(""); setInputPrice(""); setQuantity("");
+                }
+            };
+
+            const sellOne = (id) => {
+                setFruits(fruits.map(f => {
+                    if (f.id === id && f.quantity > 0) {
+                        setSales(s => s + f.price);
+                        return { ...f, quantity: f.quantity - 1 };
+                    }
+                    return f;
+                }));
+            };
+
+            return (
+                <div style={{ fontFamily: 'Arial', maxWidth: '500px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '15px' }}>
+                    <h1 style={{textAlign: 'center'}}>Sultan's Elite Shop 🛒</h1>
+                    <div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
+                        <div style={{flex: 1, padding: '10px', background: '#f0f0f0', borderRadius: '10px', textAlign: 'center'}}>
+                            Sales: <strong>Rs. {sales}</strong>
+                        </div>
+                    </div>
+                    
+                    <div style={{marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '10px'}}>
+                        <input placeholder="Item Name" value={inputValue} onChange={e => setInputValue(e.target.value)} style={{padding: '10px'}} />
+                        <div style={{display: 'flex', gap: '5px'}}>
+                            <input type="number" placeholder="Price" value={inputPrice} onChange={e => setInputPrice(e.target.value)} style={{flex: 1, padding: '10px'}} />
+                            <input type="number" placeholder="Qty" value={quantity} onChange={e => setQuantity(e.target.value)} style={{flex: 1, padding: '10px'}} />
+                            <button onClick={addFruit} style={{padding: '10px', background: '#1e3a8a', color: 'white', border: 'none', borderRadius: '5px'}}>Add</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        {fruits.map(f => (
+                            <ListItem key={f.id} data={f} onSell={() => sellOne(f.id)} onAdd={() => setFruits(fruits.map(x => x.id === f.id ? {...x, quantity: x.quantity + 1} : x))} onDelete={() => setFruits(fruits.filter(x => x.id !== f.id))} />
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
 </html>
