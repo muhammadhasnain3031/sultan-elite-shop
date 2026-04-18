@@ -16,5 +16,10 @@
       <h2 style="text-align:center; color:#1e3a8a;">Loading Sultan's Shop...</h2>
     </div>
 <script type="module" src="/src/main.jsx"></script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
   </body>
 </html>
