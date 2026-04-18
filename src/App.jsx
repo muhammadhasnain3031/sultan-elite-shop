@@ -91,21 +91,28 @@ export default function App() {
   );
 }
 
+// Styles ko bas thora upgrade kiya hai, functionality wahi hai
 const styles = {
-  container: { backgroundColor: '#f0f2f5', minHeight: '100vh', padding: '20px', display: 'flex', justifyContent: 'center', fontFamily: '"Segoe UI", Roboto, sans-serif' },
-  card: { width: '100%', maxWidth: '500px', backgroundColor: '#ffffff', padding: '30px', borderRadius: '30px', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' },
-  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' },
-  title: { fontSize: '22px', fontWeight: '800', color: '#1a202c', margin: 0 },
-  exportBtn: { backgroundColor: '#4f46e5', color: '#fff', border: 'none', padding: '8px 15px', borderRadius: '12px', cursor: 'pointer', fontSize: '12px', fontWeight: '600' },
-  statsRow: { display: 'flex', gap: '15px', marginBottom: '25px' },
-  statBoxBlue: { flex: 1, padding: '15px', borderRadius: '20px', backgroundColor: '#eef2ff', border: '1px solid #e0e7ff', textAlign: 'center' },
-  statBoxGreen: { flex: 1, padding: '15px', borderRadius: '20px', backgroundColor: '#f0fdf4', border: '1px solid #dcfce7', textAlign: 'center' },
-  label: { display: 'block', fontSize: '10px', fontWeight: 'bold', color: '#64748b', marginBottom: '5px' },
-  val: { fontSize: '18px', fontWeight: '800', color: '#1e293b' },
-  inputCard: { backgroundColor: '#f8fafc', padding: '20px', borderRadius: '20px', marginBottom: '25px', border: '1px solid #f1f5f9' },
-  inputField: { width: '100%', padding: '12px', borderRadius: '12px', border: '1px solid #e2e8f0', marginBottom: '10px', outline: 'none', fontSize: '14px' },
-  inputSmall: { width: '30%', padding: '12px', borderRadius: '12px', border: '1px solid #e2e8f0', outline: 'none', fontSize: '14px' },
-  addBtn: { flex: 1, backgroundColor: '#1e293b', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: '700', cursor: 'pointer' },
-  listContainer: { display: 'flex', flexDirection: 'column', gap: '12px' },
-  resetLink: { width: '100%', marginTop: '30px', background: 'none', border: 'none', color: '#94a3b8', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }
+  container: { backgroundColor: '#0f172a', minHeight: '100vh', padding: '15px', display: 'flex', justifyContent: 'center', fontFamily: 'Inter, sans-serif' },
+  card: { width: '100%', maxWidth: '480px', backgroundColor: '#ffffff', padding: '25px', borderRadius: '24px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' },
+  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' },
+  title: { fontSize: '20px', fontWeight: '900', color: '#1e293b', margin: 0, letterSpacing: '-0.5px' },
+  
+  // Indigo Premium Button
+  exportBtn: { backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', padding: '10px 16px', borderRadius: '12px', cursor: 'pointer', fontSize: '12px', fontWeight: '700', boxShadow: '0 4px 6px -1px rgba(79, 70, 229, 0.4)' },
+  
+  statsRow: { display: 'flex', gap: '12px', marginBottom: '20px' },
+  statBoxBlue: { flex: 1, padding: '16px', borderRadius: '16px', backgroundColor: '#f0f9ff', border: '1px solid #bae6fd', textAlign: 'center' },
+  statBoxGreen: { flex: 1, padding: '16px', borderRadius: '16px', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', textAlign: 'center' },
+  label: { display: 'block', fontSize: '10px', fontWeight: '800', color: '#64748b', marginBottom: '4px', textTransform: 'uppercase' },
+  val: { fontSize: '18px', fontWeight: '900', color: '#0f172a' },
+  
+  // Inputs (Wahi logic jo aapne di, bas border thora clean)
+  inputCard: { backgroundColor: '#f8fafc', padding: '20px', borderRadius: '18px', marginBottom: '25px', border: '1px solid #e2e8f0' },
+  inputField: { color:'black', width: '100%', padding: '12px', borderRadius: '10px', border: '2px solid #cbd5e1', marginBottom: '10px', outline: 'none', fontSize: '14px', backgroundColor: '#fff' },
+  inputSmall: { color:'black', width: '32%', padding: '12px', borderRadius: '10px', border: '2px solid #cbd5e1', outline: 'none', fontSize: '14px', backgroundColor: '#fff' },
+  addBtn: { flex: 1, backgroundColor: '#1e293b', color: '#ffffff', border: 'none', borderRadius: '10px', fontWeight: '800', cursor: 'pointer', transition: 'all 0.2s' },
+  
+  listContainer: { display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '300px', overflowY: 'auto' },
+  resetLink: { width: '100%', marginTop: '25px', background: 'none', border: 'none', color: '#94a3b8', fontSize: '12px', cursor: 'pointer', fontWeight: '700', textDecoration: 'underline' }
 };
